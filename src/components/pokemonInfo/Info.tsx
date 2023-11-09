@@ -43,7 +43,7 @@ const Info = () => {
         <h5 className="font-semibold text-xl capitalize">Weight : {result?.weight}</h5>
       </div>
       <div className="flex-col">
-        {result?.stats?.map((statObject: any) => {
+        {result?.stats?.map((statObject: string | any) => {
           const statName = statObject.stat.name;
           const statValue = statObject.base_stat;
 

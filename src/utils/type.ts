@@ -1,8 +1,4 @@
-export type resultArray = {
+export type resultItem = {
   name: string;
   url: string;
-  sprites: string;
-  other: string;
-  home: string;
-
 };
