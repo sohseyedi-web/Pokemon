@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { getAllPokemonApi } from "../utils/api";
+import { http } from "../utils/http";
 import Results from "./Results";
 
 const Home: FC = () => {
@@ -10,8 +10,8 @@ const Home: FC = () => {
   const getPokemon = async () => {
     setLoading(true);
     try {
-      const res = await getAllPokemonApi();
-      setData(res?.results);
+      const { data } = await http.get("/pokemon?offset=20&limit=20");
+      setData(data?.results);
     } catch (error) {
     } finally {
       setLoading(false);

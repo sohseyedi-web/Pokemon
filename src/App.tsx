@@ -10,7 +10,7 @@ function App() {
       <Navbar/>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/pokemon/:name" element={<Info />} />
+        <Route path="/:name" element={<Info />} />
       </Routes>
     </BrowserRouter>
   );
