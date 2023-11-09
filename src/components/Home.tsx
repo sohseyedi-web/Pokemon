@@ -1,31 +1,21 @@
-import { FC, useEffect, useState } from "react";
-import { http } from "../utils/http";
+import { FC, useState } from "react";
+import { getAllPokemon } from "../utils/http";
 import Results from "./Results";
 import Loading from "./common/Loading";
+import { useQuery } from "@tanstack/react-query";
 
 const Home: FC = () => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
+ 
   const [search, setSearch] = useState("");
 
-  const getPokemon = async () => {
-    setLoading(true);
-    try {
-      const { data } = await http.get("/pokemon?offset=20&limit=20");
-      setData(data?.results);
-    } catch (error) {
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { data, isLoading } = useQuery({
+    queryKey: ["get-pokemon"],
+    queryFn: getAllPokemon,
+  });
 
-  const filterResult = data?.filter((item: any) =>
+  const filterResult = data?.results?.filter((item: any) =>
     item.name.toLowerCase().includes(search.toLowerCase())
   );
-
-  useEffect(() => {
-    getPokemon();
-  }, []);
 
   return (
     <section className="max-w-5xl mx-auto py-3">
@@ -38,7 +28,7 @@ const Home: FC = () => {
           className="w-full h-[45px] bg-transparent text-white rounded-lg border border-slate-950 shadow outline-none transition-all duration-200 focus:border-gray-100 text-lg px-2"
         />
       </header>
-      {loading ? (
+      {isLoading ? (
         <Loading />
       ) : (
         <div className="flex items-center justify-center w-ful gap-3 mt-5 flex-wrap">
@@ -47,7 +37,7 @@ const Home: FC = () => {
               Not found Pokemon
             </div>
           ) : (
-            filterResult?.map((item) => <Results item={item} />)
+            filterResult?.map((item : any) => <Results item={item} />)
           )}
         </div>
       )}
