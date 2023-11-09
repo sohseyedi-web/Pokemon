@@ -44,7 +44,7 @@ const Home: FC = () => {
         <div className="flex items-center justify-center w-ful gap-3 mt-5 flex-wrap">
           {filterResult?.length === 0 ? (
             <div className="w-full mt-5 text-center text-lg font-semibold text-white">
-              Not found results
+              Not found Pokemon
             </div>
           ) : (
             filterResult?.map((item) => <Results item={item} />)
